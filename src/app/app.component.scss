@@ -8,8 +8,14 @@
   width: 100%;
 }
 
+.example-icon {
+  padding: 0 14px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
 .example-card {
-  max-width: 400px;
-  margin: 10px;
-  float: left;
+  max-width: 350px;
 }

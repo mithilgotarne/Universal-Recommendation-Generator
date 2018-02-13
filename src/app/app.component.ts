@@ -1,20 +1,15 @@
 import { Component } from '@angular/core';
-
 import { Client } from 'elasticsearch';
-
-import {Observable} from 'rxjs/Observable';
-import {startWith} from 'rxjs/operators/startWith';
-import {map} from 'rxjs/operators/map';
 import { FormControl } from '@angular/forms';
 
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app';
+  title = 'BEP App';
   es: Client;
   response: any;
   searchCtrl: FormControl;
