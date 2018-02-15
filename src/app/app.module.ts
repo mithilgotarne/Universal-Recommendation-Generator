@@ -12,8 +12,10 @@ import { SearchComponent } from './components/search/search.component';
 import { ProductComponent } from './components/product/product.component';
 
 import { ElasticsearchService } from './services/elasticsearch.service';
+import { ElasticConfigComponent } from './components/elastic-config/elastic-config.component';
 
 const routes: Routes = [
+  { path: '', component: ElasticConfigComponent },
   { path: 'search', component: SearchComponent },
   { path: 'similar', component: SimilarComponent },
 ];
@@ -24,6 +26,7 @@ const routes: Routes = [
     SimilarComponent,
     SearchComponent,
     ProductComponent,
+    ElasticConfigComponent,
   ],
   imports: [
     BrowserModule,

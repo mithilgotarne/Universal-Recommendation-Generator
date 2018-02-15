@@ -1,0 +1,26 @@
+<div style="text-align: center; display: flex; flex-direction: column; align-items: center;">
+  <div *ngIf="error">
+    <h1>
+      <i class="material-icons" style="font-size: 150px; color: red">error_outline</i>
+      <br>
+      {{error}}
+    </h1>
+  </div>
+  <div *ngIf="!error">
+      <h1>
+        <i class="material-icons" style="font-size: 150px; color: green">check_circle</i>
+        <br>
+        Elasticsearch is connected!
+      </h1>
+  </div>
+    <form>
+      <mat-form-field class="example-full-width" [floatLabel]="'always'">
+        <mat-label></mat-label>
+        <span matPrefix>Elasticsearch Host&nbsp;</span>
+        <input matInput #hostInput [disabled]="!error" [value]="host">
+      </mat-form-field>
+      <button mat-raised-button color="primary"
+       [disabled]="!error"
+      (click)="changeHost(hostInput.value)">Set</button>
+    </form>
+</div>

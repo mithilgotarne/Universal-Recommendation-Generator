@@ -1,48 +1,44 @@
 import { Injectable } from '@angular/core';
 import { Client } from 'elasticsearch';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class ElasticsearchService {
 
   client: Client;
 
-  constructor() {
-    this.setupHost();
-  }
-
-  private setupHost() {
+  constructor(private router: Router) {
     const host = localStorage.getItem('host');
-    if (host) {
-      this.setupES(host);
-    } else {
-      this.requestHost();
-    }
+    this.setupES(host);
   }
 
-  private requestHost() {
-    const host = window.prompt('Enter elasticsearch host');
-    if (!host) {
-      this.requestHost();
-    } else {
-      localStorage.setItem('host', host);
-      this.setupES(host);
-    }
-  }
-
-  private setupES(host: string) {
+  public setup(host: string) {
     this.client = new Client({
       host: host,
       log: 'trace'
     });
-    this.client.ping({
+    return this.client.ping({
       requestTimeout: 30000,
-    }, (error) => {
-      if (error) {
-        console.log('elasticsearch cluster is down!');
-        this.requestHost();
-      } else {
-        console.log('All is well');
-      }
+    });
+  }
+
+  public setHost(host: string) {
+    localStorage.setItem('host', host);
+  }
+
+  public getHost() {
+    return localStorage.getItem('host');
+  }
+
+  private setupES(host: string) {
+    this.setup(host)
+    .then(body => {
+      console.log(body);
+      this.setHost(host);
+    })
+    .catch(error => {
+      console.log('elasticsearch cluster is down!');
+      this.router.navigate([''], {queryParams: {status: error}});
     });
   }
 
