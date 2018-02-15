@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "ng build --prod --base-href /bep/ && sudo gh-pages -d dist"
+    "deploy": "ng build --prod && sudo gh-pages -d dist"
   },
   "private": true,
   "dependencies": {
