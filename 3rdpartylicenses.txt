@@ -180,11 +180,7 @@ maintained libraries used by this software which have their own
 licenses; we recommend you read them, as their terms may differ from the
 terms above.
 
-@angular/core@5.2.4
-MIT
-MIT
-
-lodash.trimend@4.5.1
+lodash.isempty@4.4.0
 MIT
 Copyright jQuery Foundation and other contributors <https://jquery.org/>
 
@@ -233,6 +229,10 @@ Files located in the node_modules and vendor directories are externally
 maintained libraries used by this software which have their own
 licenses; we recommend you read them, as their terms may differ from the
 terms above.
+
+@angular/core@5.2.4
+MIT
+MIT
 
 path-browserify@0.0.0
 MIT
@@ -356,7 +356,7 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-lodash.isempty@4.4.0
+lodash.trimend@4.5.1
 MIT
 Copyright jQuery Foundation and other contributors <https://jquery.org/>
 
