@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Client } from 'elasticsearch';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -10,60 +10,13 @@ import { FormControl } from '@angular/forms';
 })
 export class AppComponent {
   title = 'BEP App';
-  es: Client;
-  response: any;
+
   searchCtrl: FormControl;
-  constructor() {
+  constructor(private router: Router) {
     this.searchCtrl = new FormControl();
-    this.setupHost();
     this.searchCtrl.valueChanges.subscribe(value => {
-      this.search(value);
+      this.router.navigate(['/search'], { queryParams: { q: value } });
     });
   }
 
-  private setupHost() {
-    const host = localStorage.getItem('host');
-    if (host) {
-      this.setupES(host);
-    } else {
-      this.requestHost();
-    }
-  }
-
-  private requestHost() {
-    const host = window.prompt('Enter elasticsearch host');
-    if (!host) {
-      this.requestHost();
-    } else {
-      localStorage.setItem('host', host);
-      this.setupES(host);
-    }
-  }
-
-  private setupES(host: string) {
-    this.es = new Client({
-      host: host,
-      log: 'trace'
-    });
-    this.es.ping({
-      requestTimeout: 5000,
-    }, (error) => {
-      if (error) {
-        console.log('elasticsearch cluster is down!');
-        this.requestHost();
-      } else {
-        console.log('All is well');
-      }
-    });
-  }
-
-  private search(value: string) {
-    this.es.search({
-      q: value
-    }).then( (body) => {
-      this.response = body.hits.hits;
-    }, (error) => {
-      console.log(error.message);
-    });
-  }
 }

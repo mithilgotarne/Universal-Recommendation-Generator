@@ -11,29 +11,4 @@
     </form>
   </mat-toolbar-row>
 </mat-toolbar>
-<mat-grid-list cols="3" rowHeight="600">
-  <mat-grid-tile *ngFor="let r of response; let i=index">
-    <mat-card class="example-card">
-      <mat-card-header>
-        <div mat-card-avatar class="example-header-image" [ngClass]="r._index"></div>
-        <mat-card-title>{{ r._source.Product_Description }}</mat-card-title>
-        <mat-card-subtitle>{{ r._source.Company }}</mat-card-subtitle>
-      </mat-card-header>
-      <img *ngIf="i%2==0" mat-card-image src="https://source.unsplash.com/448x298/?phone">
-      <img *ngIf="i%2==1" mat-card-image src="https://source.unsplash.com/448x298/?cellphone">    
-      <mat-card-content>
-        <p>
-            Item Weight: {{ r._source.Item_Weight }}<br>
-            Product Dimensions: {{ r._source.Product_dimensions }}<br>
-            OS: {{ r._source.OS }}<br>
-            RAM: {{ r._source.RAM }}<br>
-            Cost: {{ r._source.Cost }} INR<br>
-        </p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-raised-button color="accent">Find Similar</button>
-      </mat-card-actions>
-    </mat-card>
-  </mat-grid-tile>
-</mat-grid-list>
-  
+<router-outlet></router-outlet>

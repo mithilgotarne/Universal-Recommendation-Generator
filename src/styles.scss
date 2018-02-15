@@ -4,12 +4,16 @@ body {
     margin: 0;
 }
 
+.example-card {
+  max-width: 350px;
+}
+
 .example-header-image.amazon{
     background-image: url('assets/site_logo/amazon.jpg');
 }
-    
+
 .example-header-image.flipkart{
-    background-image: url('assets/site_logo/flipkart.jpg')    
+    background-image: url('assets/site_logo/flipkart.jpg')
 }
 .example-header-image {
     background-size: cover;

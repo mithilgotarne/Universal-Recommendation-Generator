@@ -1,0 +1,5 @@
+<mat-grid-list cols="3" rowHeight="600">
+  <mat-grid-tile *ngFor="let r of response">
+    <app-product [product]="r"></app-product>
+  </mat-grid-tile>
+</mat-grid-list>
