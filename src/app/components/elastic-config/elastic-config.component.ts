@@ -11,6 +11,7 @@ export class ElasticConfigComponent implements OnInit {
 
   error: any;
   host: any;
+  loading = false;
 
   constructor(private es: ElasticsearchService, private route: ActivatedRoute, private router: Router) {
     this.host = this.es.getHost();
@@ -22,11 +23,13 @@ export class ElasticConfigComponent implements OnInit {
     });
   }
 
-  private changeHost(host: string) {
+  changeHost(host: string) {
+    this.loading = true;
     this.es.setup(host).then( body => {
       this.es.setHost(host);
       this.error = null;
       this.router.navigate(['']);
+      this.loading = false;
     });
   }
 

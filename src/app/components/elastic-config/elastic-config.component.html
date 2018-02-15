@@ -13,6 +13,7 @@
         Elasticsearch is connected!
       </h1>
   </div>
+  <mat-progress-spinner *ngIf="loading && !error" [color]="'accent'" [mode]="'indeterminate'"></mat-progress-spinner>
     <form>
       <mat-form-field class="example-full-width" [floatLabel]="'always'">
         <mat-label></mat-label>
