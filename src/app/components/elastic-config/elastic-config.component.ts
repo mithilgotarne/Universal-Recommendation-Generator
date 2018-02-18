@@ -28,7 +28,7 @@ export class ElasticConfigComponent implements OnInit {
     this.es.setup(host).then( body => {
       this.es.setHost(host);
       this.error = null;
-      this.router.navigate(['']);
+      this.router.navigate(['/']);
       this.loading = false;
     });
   }

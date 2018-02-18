@@ -38,7 +38,7 @@ export class ElasticsearchService {
     })
     .catch(error => {
       console.log('elasticsearch cluster is down!');
-      this.router.navigate([''], {queryParams: {status: error}});
+      this.router.navigate(['/'], {queryParams: {status: error}});
     });
   }
 
