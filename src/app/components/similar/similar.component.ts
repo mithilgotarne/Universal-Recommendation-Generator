@@ -18,9 +18,9 @@ export class SimilarComponent implements OnInit {
   ngOnInit() {
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
-            return;
+        return;
       }
-        window.scrollTo(0, 0);
+      window.scrollTo(0, 0);
     });
     this.route.queryParamMap.subscribe((params: ParamMap) => {
       const index = params.get('i');
@@ -34,61 +34,23 @@ export class SimilarComponent implements OnInit {
   }
 
   private getSimilar(product) {
+    const should = [];
+    for(const key in product._source) {
+      if(product._source[key]) {
+        const obj = {};
+        obj['match'] = {};
+        obj['match'][key] = product._source[key];
+        should.push(obj);
+      }
+    }
+
     this.es.client.search({
       body: {
         'from': 1,
         'size': 5,
-        'query': {
-          'bool': {
-            'should': [
-              {
-                'match': {
-                  'Rating': product._source.Rating
-                }
-              },
-              {
-                'match': {
-                  'Item_Weight': product._source.Item_Weight
-                }
-              },
-              {
-                'match': {
-                  'OS': product._source.OS
-                }
-              },
-              {
-                'match': {
-                  'Product_Description': product._source.Product_Description
-                }
-              },
-              {
-                'match': {
-                  'Product_dimensions': product._source.Product_dimensions
-                }
-              },
-              {
-                'match': {
-                  'Company': product._source.Company
-                }
-              },
-              {
-                'match': {
-                  'RAM': product._source.RAM
-                }
-              },
-              {
-                'match': {
-                  'Cost': product._source.Cost
-
-                }
-              }
-            ]
-          }
-        }
-      }
+        'query': {'bool': {'should': should}}}
     }).then(response => {
       this.response = response.hits.hits;
-    }
-    ).catch(error => { console.log(error); });
+    }).catch(error => { console.log(error); });
   }
 }
