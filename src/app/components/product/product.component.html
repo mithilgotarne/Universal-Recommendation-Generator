@@ -1,19 +1,15 @@
 <mat-card class="example-card">
   <mat-card-header>
-    <div mat-card-avatar class="example-header-image" [ngClass]="product._index"></div>
-    <mat-card-title>{{ product._source.Product_Description }}</mat-card-title>
-    <mat-card-subtitle>{{ product._source.Company }}</mat-card-subtitle>
+    <div mat-card-avatar class="example-header-image" [ngClass]="product._type"></div>
+    <mat-card-title>{{ product._source.title }}</mat-card-title>
+    <mat-card-subtitle>
+      {{ product._source.brand }} <br>
+      Price: {{ product._source.price | currency:"₹":0 }}
+    </mat-card-subtitle>
   </mat-card-header>
-  <img *ngIf="product._id%2==0" mat-card-image src="https://source.unsplash.com/448x298/?phone">
-  <img *ngIf="product._id%2==1" mat-card-image src="https://source.unsplash.com/448x298/?cellphone">
   <mat-card-content>
-    <p>
-        Item Weight: {{ product._source.Item_Weight }}<br>
-        Product Dimensions: {{ product._source.Product_dimensions }}<br>
-        OS: {{ product._source.OS }}<br>
-        RAM: {{ product._source.RAM }}<br>
-        Cost: {{ product._source.Cost }} INR<br>
-    </p>
+    <img [src]="product._source.image_url">
+    <p [innerHTML]="content"></p>
   </mat-card-content>
   <mat-card-actions *ngIf="action">
     <button mat-raised-button color="accent" (click)="getSimilar(product)">Find Similar</button>

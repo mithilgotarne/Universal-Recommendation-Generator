@@ -4,7 +4,7 @@
     </div>
     <div class="main-div">
       <h1 style="text-align: center;">Similar items</h1>
-      <mat-grid-list cols="2" rowHeight="600">
+      <mat-grid-list cols="2">
         <mat-grid-tile *ngFor="let r of response">
           <app-product [product]="r"></app-product>
         </mat-grid-tile>

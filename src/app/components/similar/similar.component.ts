@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ElasticsearchService } from '../../services/elasticsearch.service';
+import { Client } from 'elasticsearch';
 import { ActivatedRoute, ParamMap, Router, NavigationEnd } from '@angular/router';
 
 
@@ -10,6 +11,7 @@ import { ActivatedRoute, ParamMap, Router, NavigationEnd } from '@angular/router
 })
 export class SimilarComponent implements OnInit {
 
+  static tolerance = 0.25;
   product: any;
   response: any;
 
@@ -35,20 +37,33 @@ export class SimilarComponent implements OnInit {
 
   private getSimilar(product) {
     const should = [];
-    for(const key in product._source) {
-      if(product._source[key]) {
-        const obj = {};
-        obj['match'] = {};
-        obj['match'][key] = product._source[key];
-        should.push(obj);
+    for (const key in product._source) {
+      if (product._source[key]) {
+        const element = product._source[key];
+        if (typeof element === 'number') {
+          const obj = {};
+          obj['bool'] = {};
+          obj['bool']['filter'] = {};
+          obj['bool']['filter']['range'] = {};
+          obj['bool']['filter']['range'][key] = {
+            'gte': element * (1 - SimilarComponent.tolerance),
+            'lte': element * (1 + SimilarComponent.tolerance)
+          };
+        } else {
+          const obj = {};
+          obj['match'] = {};
+          obj['match'][key] = product._source[key];
+          should.push(obj);
+        }
       }
     }
 
     this.es.client.search({
       body: {
         'from': 1,
-        'size': 5,
-        'query': {'bool': {'should': should}}}
+        'size': 6,
+        'query': {'bool': {'should': should , 'must_not': [{'match': {'price': 0 } }]}}
+      }
     }).then(response => {
       this.response = response.hits.hits;
     }).catch(error => { console.log(error); });
