@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { MatInputModule, MatCardModule, MatButtonModule, MatToolbarModule, MatGridListModule, MatIconModule,
-  MatProgressSpinnerModule } from '@angular/material';
+  MatProgressSpinnerModule, MatTabsModule, MatChipsModule} from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { SimilarComponent } from './components/similar/similar.component';
@@ -35,6 +35,7 @@ const routes: Routes = [
     MatInputModule, MatCardModule, MatButtonModule, MatToolbarModule, MatGridListModule, MatIconModule, MatProgressSpinnerModule,
     FormsModule, ReactiveFormsModule,
     RouterModule.forRoot(routes),
+    MatTabsModule, MatChipsModule
   ],
   providers: [
     ElasticsearchService,

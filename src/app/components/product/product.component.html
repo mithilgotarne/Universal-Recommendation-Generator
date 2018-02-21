@@ -9,7 +9,7 @@
   </mat-card-header>
   <mat-card-content>
     <img [src]="product._source.image_url">
-    <p [innerHTML]="content"></p>
+    <div [innerHTML]="content"></div>
   </mat-card-content>
   <mat-card-actions *ngIf="action">
     <button mat-raised-button color="accent" (click)="getSimilar(product)">Find Similar</button>

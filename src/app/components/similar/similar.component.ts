@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ElasticsearchService } from '../../services/elasticsearch.service';
 import { Client } from 'elasticsearch';
 import { ActivatedRoute, ParamMap, Router, NavigationEnd } from '@angular/router';
+import { MatTabChangeEvent } from '@angular/material';
 
 
 @Component({
@@ -12,8 +13,10 @@ import { ActivatedRoute, ParamMap, Router, NavigationEnd } from '@angular/router
 export class SimilarComponent implements OnInit {
 
   static tolerance = 0.25;
+  selectedTab = 0;
   product: any;
   response: any;
+  maxScore: any;
 
   constructor(private route: ActivatedRoute, private es: ElasticsearchService, private router: Router) { }
 
@@ -49,6 +52,7 @@ export class SimilarComponent implements OnInit {
             'gte': element * (1 - SimilarComponent.tolerance),
             'lte': element * (1 + SimilarComponent.tolerance)
           };
+          should.push(obj);
         } else {
           const obj = {};
           obj['match'] = {};
@@ -66,6 +70,7 @@ export class SimilarComponent implements OnInit {
       }
     }).then(response => {
       this.response = response.hits.hits;
+      this.maxScore = response.hits.max_score;
     }).catch(error => { console.log(error); });
   }
 }
