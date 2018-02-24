@@ -4,7 +4,17 @@
     <mat-card-title>{{ product._source.title }}</mat-card-title>
     <mat-card-subtitle>
       {{ product._source.brand }} <br>
-      Price: {{ product._source.price | currency:"₹":0 }}
+      <mat-chip-list>
+        <mat-chip *ngIf="product._source.price > 0" style="margin-top:10px"
+          [selected]="true">
+          Price: {{ product._source.price | currency:"₹":0 }}
+        </mat-chip>
+        <mat-chip *ngIf="product._source.price == 0" style="margin-top:10px"
+          [selected]="true"
+          [color]="'warn'">
+          Out of Stock
+        </mat-chip>
+      </mat-chip-list>
     </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>

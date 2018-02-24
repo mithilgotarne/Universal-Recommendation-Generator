@@ -1,0 +1,20 @@
+.index-icon{
+  font-size: 8em;
+  padding: 10px;
+}
+
+mat-card{
+  cursor: pointer;
+  mat-card-footer{
+    h3 {
+      text-align: center;
+    }
+  }
+}
+
+.tick {
+  position: absolute;
+  left: -14px;
+  font-size: 38px;
+  color: green;
+}

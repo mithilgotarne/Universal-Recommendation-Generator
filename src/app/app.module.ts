@@ -14,10 +14,13 @@ import { ProductComponent } from './components/product/product.component';
 
 import { ElasticsearchService } from './services/elasticsearch.service';
 import { ElasticConfigComponent } from './components/elastic-config/elastic-config.component';
+import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
-  { path: '', component: ElasticConfigComponent },
-  { path: 'search', component: SearchComponent },
+  { path: '', pathMatch: 'full', redirectTo: '/home/phones' },
+  { path: 'home/:index', component: HomeComponent },
+  { path: 'status', component: ElasticConfigComponent },
+  { path: ':index/search', component: SearchComponent },
   { path: 'similar', component: SimilarComponent },
 ];
 
@@ -28,6 +31,7 @@ const routes: Routes = [
     SearchComponent,
     ProductComponent,
     ElasticConfigComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

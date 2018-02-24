@@ -6,10 +6,10 @@ import { Router } from '@angular/router';
 export class ElasticsearchService {
 
   client: Client;
+  hosts = ['http://35.200.204.158:9200', 'http://35.200.208.146:9200'];
 
   constructor(private router: Router) {
-    const host = localStorage.getItem('host');
-    this.setupES(host);
+    this.setupES(this.hosts[0]);
   }
 
   public setup(host: string) {
@@ -18,7 +18,7 @@ export class ElasticsearchService {
       log: 'trace'
     });
     return this.client.ping({
-      requestTimeout: 30000,
+      requestTimeout: 10000,
     });
   }
 
@@ -37,8 +37,12 @@ export class ElasticsearchService {
       this.setHost(host);
     })
     .catch(error => {
-      console.log('elasticsearch cluster is down!');
-      this.router.navigate(['/'], {queryParams: {status: error}});
+      if (this.hosts[1] === host) {
+        console.log('elasticsearch cluster is down!');
+        this.router.navigate(['/'], {queryParams: {status: error}});
+      } else {
+        this.setupES(this.hosts[1]);
+      }
     });
   }
 

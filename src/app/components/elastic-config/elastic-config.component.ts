@@ -25,7 +25,7 @@ export class ElasticConfigComponent implements OnInit {
 
   changeHost(host: string) {
     this.loading = true;
-    this.es.setup(host).then( body => {
+    this.es.setup(host).then(body => {
       this.es.setHost(host);
       this.error = null;
       this.router.navigate(['/']);

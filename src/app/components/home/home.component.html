@@ -1,0 +1,13 @@
+<mat-grid-list cols="6">
+  <mat-grid-tile *ngFor="let i of indexList">
+    <mat-card (click)="changeIndex(i.index)">
+      <mat-card-content>
+        <i class="material-icons index-icon">{{i.icon}}</i>
+        <i *ngIf="selectedIndex==i" class="material-icons tick">check_circle</i>
+      </mat-card-content>
+      <mat-card-footer>
+        <h3>{{ i.title }}</h3>
+      </mat-card-footer>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>

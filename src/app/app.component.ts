@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -14,8 +14,14 @@ export class AppComponent {
   searchCtrl: FormControl;
   constructor(private router: Router) {
     this.searchCtrl = new FormControl();
-    this.searchCtrl.valueChanges.subscribe(value => {
-      this.router.navigate(['/search'], { queryParams: { q: value } });
+    this.searchCtrl.valueChanges.subscribe((value: string) => {
+      value = value.trim();
+      const index = localStorage.getItem('index');
+      if (value.length === 0) {
+        this.router.navigate([ '/' + index ]);
+      }else {
+        this.router.navigate([ '/' + index, 'search'], { queryParams: { q: value } });
+      }
     });
   }
 

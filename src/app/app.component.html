@@ -1,11 +1,11 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <span [routerLink]="['/']">{{ title }}</span>
+    <span style="cursor: pointer" [routerLink]="['/']">{{ title }}</span>
     <span class="example-spacer"></span>
     <form class="example-form dark-theme">
       <mat-form-field class="example-full-width" [floatLabel]="'always'" color="accent">
         <mat-label></mat-label>
-        <span matPrefix><i class="material-icons">search</i> Search for&nbsp;</span>
+        <span matPrefix><i class="material-icons">search</i> Search for :&nbsp;</span>
         <input matInput [formControl]="searchCtrl">
       </mat-form-field>
     </form>
