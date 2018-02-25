@@ -18,7 +18,7 @@ export class AppComponent {
       value = value.trim();
       const index = localStorage.getItem('index');
       if (value.length === 0) {
-        this.router.navigate([ '/' + index ]);
+        this.router.navigate([ '/home' , index ]);
       }else {
         this.router.navigate([ '/' + index, 'search'], { queryParams: { q: value } });
       }

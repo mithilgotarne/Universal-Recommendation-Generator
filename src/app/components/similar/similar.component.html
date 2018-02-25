@@ -2,18 +2,18 @@
   <div class="product">
     <app-product class="main-card" *ngIf="product" [product]="product" [action]="false"></app-product>
   </div>
-  <div class="main-div">
-    <h1 style="text-align: center;">Similar items</h1>
+  <div>
+    <h2>Similar items</h2>
     <mat-tab-group class="demo-tab-group" [selectedIndex]="selectedTab" (focusChange)="selectedTab=$event.index">
-      <mat-tab [label]="r._source.title" *ngFor="let r of response">
-        <div class="demo-tab-content">
-          <mat-chip-list>
-            <mat-chip id="score" [style.background]="'rgba(0,153,0,' + (r._score/maxScore) + ')'"
-            selected="true">{{ r._score / maxScore | percent }}</mat-chip>
-          </mat-chip-list>
-          <app-product [product]="r"></app-product>
-        </div>
-      </mat-tab>
-    </mat-tab-group>
+        <mat-tab [label]="r._source.title" *ngFor="let r of response">
+          <div class="demo-tab-content">
+            <mat-chip-list>
+              <mat-chip id="score" [style.background]="'rgba(0,153,0,' + (r._score/maxScore) + ')'"
+              selected="true">{{ r._score / maxScore | percent }}</mat-chip>
+            </mat-chip-list>
+            <app-product [product]="r"></app-product>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
   </div>
 </div>

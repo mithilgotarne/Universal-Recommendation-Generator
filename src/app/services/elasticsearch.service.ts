@@ -39,7 +39,7 @@ export class ElasticsearchService {
     .catch(error => {
       if (this.hosts[1] === host) {
         console.log('elasticsearch cluster is down!');
-        this.router.navigate(['/'], {queryParams: {status: error}});
+        this.router.navigate(['/status'], {queryParams: {status: error}});
       } else {
         this.setupES(this.hosts[1]);
       }

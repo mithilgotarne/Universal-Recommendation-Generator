@@ -13,7 +13,7 @@ import { MatTabChangeEvent } from '@angular/material';
 export class SimilarComponent implements OnInit {
 
   static tolerance = 0.25;
-  selectedTab = 0;
+  selectedTab: number;
   product: any;
   response: any;
   maxScore: any;
@@ -21,12 +21,6 @@ export class SimilarComponent implements OnInit {
   constructor(private route: ActivatedRoute, private es: ElasticsearchService, private router: Router) { }
 
   ngOnInit() {
-    this.router.events.subscribe((evt) => {
-      if (!(evt instanceof NavigationEnd)) {
-        return;
-      }
-      window.scrollTo(0, 0);
-    });
     this.route.queryParamMap.subscribe((params: ParamMap) => {
       const index = params.get('i');
       const type = params.get('t');
@@ -71,6 +65,7 @@ export class SimilarComponent implements OnInit {
     }).then(response => {
       this.response = response.hits.hits;
       this.maxScore = response.hits.max_score;
+      this.selectedTab = 0;
     }).catch(error => { console.log(error); });
   }
 }

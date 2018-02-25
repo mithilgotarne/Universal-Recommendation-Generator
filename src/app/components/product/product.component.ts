@@ -25,12 +25,14 @@ export class ProductComponent implements OnInit {
           const element = this.product._source[key];
           if (['Product Dimensions0', 'Product Dimensions1', 'Product Dimensions2'].includes(key)) {
             pd +=  element + ' x ';
+            if ('Product Dimensions2' === key) {
+              this.content += pd.slice(0, pd.length - 2) + 'cm';
+            }
             continue;
           }
           this.content += '<b>' + key + '</b>' + ': ' + element + '<br>';
         }
       }
-      this.content += pd.slice(0, pd.length - 2) + 'cm';
     }
   }
 

@@ -39,7 +39,7 @@ const routes: Routes = [
     MatInputModule, MatCardModule, MatButtonModule, MatToolbarModule, MatGridListModule, MatIconModule, MatProgressSpinnerModule,
     FormsModule, ReactiveFormsModule,
     RouterModule.forRoot(routes),
-    MatTabsModule, MatChipsModule
+    MatTabsModule, MatChipsModule,
   ],
   providers: [
     ElasticsearchService,
