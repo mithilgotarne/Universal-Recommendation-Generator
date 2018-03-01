@@ -12,8 +12,7 @@ export class ProductComponent implements OnInit {
   @Input() action = true;
   content = '';
 
-  constructor( private router: Router) {
-   }
+  constructor( private router: Router) {}
 
   ngOnInit() {
     if (this.product._source) {

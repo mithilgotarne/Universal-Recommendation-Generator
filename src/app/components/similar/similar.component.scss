@@ -33,3 +33,10 @@ mat-chip#score{
   font-size: 20px;
   font-weight: bold;
 }
+
+#config-btn{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+}

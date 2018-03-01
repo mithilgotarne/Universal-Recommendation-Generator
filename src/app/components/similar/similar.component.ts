@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ElasticsearchService } from '../../services/elasticsearch.service';
 import { Client } from 'elasticsearch';
 import { ActivatedRoute, ParamMap, Router, NavigationEnd } from '@angular/router';
-import { MatTabChangeEvent } from '@angular/material';
+import { MatTabChangeEvent, MatDialog } from '@angular/material';
+import { FilterDialogComponent } from '../filter-dialog/filter-dialog.component';
 
 
 @Component({
@@ -18,7 +19,9 @@ export class SimilarComponent implements OnInit {
   response: any;
   maxScore: any;
 
-  constructor(private route: ActivatedRoute, private es: ElasticsearchService, private router: Router) { }
+  constructor(private route: ActivatedRoute,
+    private dialog: MatDialog,
+    private es: ElasticsearchService, private router: Router) { }
 
   ngOnInit() {
     this.route.queryParamMap.subscribe((params: ParamMap) => {
@@ -32,10 +35,19 @@ export class SimilarComponent implements OnInit {
     });
   }
 
-  private getSimilar(product) {
+  private getSimilar(product, checkedKeys?) {
+    if (!checkedKeys) {
+      checkedKeys = JSON.parse(localStorage.getItem('config'));
+    }
+    if (!checkedKeys) {
+      checkedKeys = [];
+    }
     const should = [];
     for (const key in product._source) {
       if (product._source[key]) {
+        if (checkedKeys.length > 0 && !checkedKeys.includes(key)) {
+          continue;
+        }
         const element = product._source[key];
         if (typeof element === 'number') {
           const obj = {};
@@ -57,10 +69,15 @@ export class SimilarComponent implements OnInit {
     }
 
     this.es.client.search({
+      index: this.product._index,
       body: {
-        'from': 1,
-        'size': 6,
-        'query': {'bool': {'should': should , 'must_not': [{'match': {'price': 0 } }]}}
+        // 'from': 1,
+        // 'size': 6,
+        'query': {'bool': {'should': should ,
+        'must_not': [
+          {'match': {'price': 0 } },
+          {'ids': {'values': [this.product._id]}}]
+        }}
       }
     }).then(response => {
       this.response = response.hits.hits;
@@ -68,4 +85,17 @@ export class SimilarComponent implements OnInit {
       this.selectedTab = 0;
     }).catch(error => { console.log(error); });
   }
+
+  openConfigDialog() {
+    const dialogRef = this.dialog.open(FilterDialogComponent, {
+      // height: '400px',
+      width: '700px',
+      data: this.product._source
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog result:' , result);
+      this.getSimilar(this.product, result);
+    });
+  }
 }
+
