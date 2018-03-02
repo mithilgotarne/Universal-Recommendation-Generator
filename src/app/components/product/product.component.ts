@@ -10,13 +10,16 @@ export class ProductComponent implements OnInit {
 
   @Input() product: any;
   @Input() action = true;
+  @Input() showAllAttributes = true;
   content = '';
+  maxAttributesCount = 18;
 
   constructor( private router: Router) {}
 
   ngOnInit() {
     if (this.product._source) {
       let pd = '<b>Product Dimensions</b>: ';
+      let count = 0;
       for (const key in this.product._source) {
         if (['brand', 'title', 'price', 'image_url', 'Weight0'].includes(key)) {
           continue;
@@ -27,10 +30,15 @@ export class ProductComponent implements OnInit {
             pd +=  element + ' x ';
             if (['Product Dimensions2', 'Package Dimensions2'].includes(key)) {
               this.content += pd.slice(0, pd.length - 2) + 'cm <br>';
+              count++;
             }
             continue;
           }
           this.content += '<b>' + key + '</b>' + ': ' + element + '<br>';
+          count++;
+        }
+        if (!this.showAllAttributes && count >= this.maxAttributesCount) {
+          break;
         }
       }
     }

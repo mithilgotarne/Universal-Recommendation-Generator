@@ -1,8 +1,10 @@
-<h1 mat-dialog-title>Configure</h1>
+<h1 mat-dialog-title>Configure Query</h1>
 <div mat-dialog-content>
   <mat-checkbox [(ngModel)]="c.checked" *ngFor="let c of config">{{ c.key }}</mat-checkbox>
 </div>
 <div mat-dialog-actions>
+  <button mat-button (click)="unSelectAll()">Unselect All</button>
+  <button mat-button (click)="selectAll()" color="accent">Select All</button>
   <button mat-button (click)="onNoClick()" color="warn">Cancel</button>
   <button mat-button (click)="save()" color="primary"
   cdkFocusInitial>Save</button>

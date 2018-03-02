@@ -45,6 +45,9 @@ export class SimilarComponent implements OnInit {
     const should = [];
     for (const key in product._source) {
       if (product._source[key]) {
+        if (key === 'image_url') {
+          continue;
+        }
         if (checkedKeys.length > 0 && !checkedKeys.includes(key)) {
           continue;
         }
@@ -94,7 +97,9 @@ export class SimilarComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('Dialog result:' , result);
-      this.getSimilar(this.product, result);
+      if (result) {
+        this.getSimilar(this.product, result);
+      }
     });
   }
 }

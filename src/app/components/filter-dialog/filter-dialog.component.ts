@@ -17,16 +17,37 @@ export class FilterDialogComponent implements OnInit {
   ngOnInit() {
     this.product = this.data;
     const checkedKeys = JSON.parse(localStorage.getItem('config'));
-    for (const key in this.product) {
-      if (this.product[key]) {
-        if (checkedKeys && checkedKeys.includes(key)) {
-          this.config.push({'key': key, checked: true});
-        } else {
-          this.config.push({'key': key, checked: false});
+    if (!checkedKeys) {
+      this.selectAll();
+    } else if (checkedKeys && checkedKeys.length === 0) {
+      this.selectAll();
+    } else {
+      for (const key in this.product) {
+        if (this.product[key]) {
+          if (checkedKeys && checkedKeys.includes(key)) {
+            this.config.push({'key': key, checked: true});
+          } else {
+            this.config.push({'key': key, checked: false});
+          }
         }
       }
     }
     console.log(this.config);
+  }
+
+  selectAll() {
+    this.config = [];
+    for (const key in this.product) {
+      if (this.product[key]) {
+        this.config.push({'key': key, checked: true});
+      }
+    }
+  }
+
+  unSelectAll() {
+    for (let i = 0; i < this.config.length; i++) {
+      this.config[i].checked = false;
+    }
   }
 
   private getChecked(config) {
