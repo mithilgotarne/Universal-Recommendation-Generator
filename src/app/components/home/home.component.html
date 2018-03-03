@@ -1,4 +1,4 @@
-<mat-grid-list cols="6">
+<mat-grid-list cols="6" @indexAnim>
   <mat-grid-tile *ngFor="let i of indexList">
     <mat-card (click)="changeIndex(i.index)">
       <mat-card-content>
