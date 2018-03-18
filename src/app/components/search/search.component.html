@@ -1,4 +1,4 @@
-<mat-grid-list cols="2" rowHeight="550" [@listAnimation]="response.length">
+<mat-grid-list cols="2" rowHeight="550">
   <mat-grid-tile *ngFor="let r of response">
     <app-product [product]="r" [showAllAttributes]="false"></app-product>
   </mat-grid-tile>

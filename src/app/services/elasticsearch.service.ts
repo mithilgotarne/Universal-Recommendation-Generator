@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 export class ElasticsearchService {
 
   client: Client;
-  hosts = ['http://35.200.204.158:9200', 'http://35.200.208.146:9200'];
+  hosts = ['http://35.200.163.15:9200', 'http://35.200.204.158:9200'];
 
   constructor(private router: Router) {
     this.setupES(this.hosts[0]);
