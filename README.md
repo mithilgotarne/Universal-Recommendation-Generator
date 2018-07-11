@@ -1,6 +1,8 @@
 # Universal-Recommendation Generator
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.5.
+## Introduction
+
+Our system provides a universal model for the recommendation of products across various categories. Recommendations are generated using the clustering of similar products. As attributes vary between different categories of products, clustering may start requiring manual intervention. Since, our system will store and make searchable semi-structured product data, it will not require any fixed data type. It will also allow the user to select attributes on which to cluster and give preference to the same. Then, the system will generate recommendations on textual data, while filters will be applied for numerical data.
 
 ## After cloning
 
